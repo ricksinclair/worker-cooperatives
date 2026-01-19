@@ -1,0 +1,12 @@
+<div class="page-wrapper">
+  <app-page-nav />
+  <article class="page-content state-detail">
+    <nav class="breadcrumb">
+      <a routerLink="/states">All States</a>
+      <span class="separator">/</span>
+      <span>{{ stateName() }}</span>
+    </nav>
+    <markdown [src]="markdownPath()"></markdown>
+  </article>
+  <app-page-nav />
+</div>

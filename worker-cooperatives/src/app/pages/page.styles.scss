@@ -1,0 +1,128 @@
+// Shared styles for all markdown page components
+.page-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+
+  // When inside page-wrapper, remove padding
+  .page-wrapper & {
+    padding: 0;
+    max-width: none;
+  }
+
+  :host ::ng-deep {
+    h1:first-child {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+    }
+
+    h3 {
+      margin-top: 2rem;
+    }
+
+    // Lists
+    ul, ol {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin: 0.75em 0;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0.5em;
+          width: 6px;
+          height: 6px;
+          background-color: var(--accent-color);
+          border-radius: 50%;
+        }
+      }
+    }
+
+    ol {
+      counter-reset: list-counter;
+
+      li {
+        counter-increment: list-counter;
+
+        &::before {
+          content: counter(list-counter);
+          width: auto;
+          height: auto;
+          background: none;
+          color: var(--accent-color);
+          font-weight: 600;
+          font-size: 0.875rem;
+          top: 0;
+        }
+      }
+    }
+
+    // Nested lists
+    ul ul, ol ol, ul ol, ol ul {
+      margin: 0.5em 0;
+      padding-left: 1rem;
+    }
+
+    // Footnotes
+    .footnotes {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+
+      ol {
+        padding-left: 1.5rem;
+      }
+    }
+
+    sup {
+      font-size: 0.75em;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    // Links styled as buttons
+    a[href^="/"] {
+      font-weight: 500;
+    }
+
+    // Callout boxes (blockquotes used as callouts)
+    blockquote {
+      margin: 1.5em 0;
+      padding: 1em 1.5em;
+      border-left: 4px solid var(--accent-color);
+      background-color: var(--bg-secondary);
+      border-radius: 0 8px 8px 0;
+
+      p:first-child {
+        margin-top: 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -3,10 +3,10 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { PageNavComponent } from '../../components/page-nav/page-nav.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-what-is-a-worker-coop',
   standalone: true,
   imports: [MarkdownComponent, PageNavComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  templateUrl: './what-is-a-worker-coop.component.html',
+  styleUrl: '../page.styles.scss'
 })
-export class HomeComponent {}
+export class WhatIsAWorkerCoopComponent {}

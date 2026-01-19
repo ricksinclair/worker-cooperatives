@@ -1,0 +1,56 @@
+@use '../page.styles';
+
+.states-page {
+  .intro {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .states-section {
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .section-note {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .states-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .state-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-align: center;
+
+    &:hover {
+      background-color: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    &.featured {
+      border-color: var(--accent-color);
+      background-color: color-mix(in srgb, var(--accent-color) 10%, var(--bg-secondary));
+    }
+  }
+}

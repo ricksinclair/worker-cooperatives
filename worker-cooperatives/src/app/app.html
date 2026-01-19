@@ -3,7 +3,27 @@
     <a routerLink="/" class="site-logo">
       <span class="logo-text">Worker Cooperatives</span>
     </a>
-    <nav class="header-nav">
+
+    <button class="mobile-menu-toggle" (click)="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        @if (mobileMenuOpen) {
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        } @else {
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        }
+      </svg>
+    </button>
+
+    <nav class="header-nav" [class.open]="mobileMenuOpen">
+      <a routerLink="/what-is-a-worker-coop" routerLinkActive="active" (click)="mobileMenuOpen = false">Learn</a>
+      <a routerLink="/how-coops-work" routerLinkActive="active" (click)="mobileMenuOpen = false">How It Works</a>
+      <a routerLink="/start" routerLinkActive="active" (click)="mobileMenuOpen = false">Start a Co-op</a>
+      <a routerLink="/states" routerLinkActive="active" (click)="mobileMenuOpen = false">State Guides</a>
+      <a routerLink="/examples" routerLinkActive="active" (click)="mobileMenuOpen = false">Examples</a>
+      <a routerLink="/faq" routerLinkActive="active" (click)="mobileMenuOpen = false">FAQ</a>
       <app-theme-toggle />
     </nav>
   </div>
@@ -15,6 +35,22 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p>Building an economy where workers own and thrive.</p>
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Learn</h4>
+        <a routerLink="/what-is-a-worker-coop">What Is a Worker Co-op?</a>
+        <a routerLink="/how-coops-work">How Co-ops Work</a>
+        <a routerLink="/examples">Case Studies</a>
+        <a routerLink="/faq">FAQ</a>
+      </div>
+      <div class="footer-section">
+        <h4>Get Started</h4>
+        <a routerLink="/start">Start a Co-op</a>
+        <a routerLink="/financing">Financing & Capital</a>
+        <a routerLink="/governance">Governance & Bylaws</a>
+        <a routerLink="/states">State Guides</a>
+      </div>
+    </div>
+    <p class="footer-tagline">Building an economy where workers own and thrive.</p>
   </div>
 </footer>

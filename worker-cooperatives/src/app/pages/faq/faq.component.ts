@@ -3,10 +3,10 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { PageNavComponent } from '../../components/page-nav/page-nav.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-faq',
   standalone: true,
   imports: [MarkdownComponent, PageNavComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  templateUrl: './faq.component.html',
+  styleUrl: '../page.styles.scss'
 })
-export class HomeComponent {}
+export class FaqComponent {}

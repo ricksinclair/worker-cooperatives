@@ -1,0 +1,248 @@
+<button class="calculator-trigger" (click)="open()">
+  Calculate Your Potential Equity
+</button>
+
+@if (isOpen()) {
+  <div class="modal-overlay" (click)="close()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <header class="modal-header">
+        <h2>Patronage Equity Calculator</h2>
+        <button class="close-btn" (click)="close()" aria-label="Close">
+          &times;
+        </button>
+      </header>
+
+      <div class="modal-body">
+        <section class="input-section">
+          <h3>Cooperative Financials</h3>
+
+          <div class="input-group">
+            <label for="surplus">Annual Net Surplus ($)</label>
+            <input
+              type="number"
+              id="surplus"
+              [ngModel]="netSurplus()"
+              (ngModelChange)="updateSurplus($event)"
+              min="0"
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="retention">Retention Rate (%)</label>
+            <input
+              type="number"
+              id="retention"
+              [ngModel]="retentionPercent()"
+              (ngModelChange)="updateRetention($event)"
+              min="0"
+              max="100"
+            />
+            <span class="hint">Typically 70-80%. At least 20% must be distributed to cover tax liability.</span>
+          </div>
+        </section>
+
+        <section class="input-section">
+          <h3>Member Hours</h3>
+          <p class="section-hint">
+            Patronage is typically calculated based on hours worked. Enter annual hours for each member.
+          </p>
+
+          <div class="members-list">
+            @for (member of members(); track $index) {
+              <div class="member-row">
+                <input
+                  type="text"
+                  [ngModel]="member.name"
+                  (ngModelChange)="updateMember($index, 'name', $event)"
+                  placeholder="Name"
+                  class="name-input"
+                />
+                <input
+                  type="number"
+                  [ngModel]="member.hoursWorked"
+                  (ngModelChange)="updateMember($index, 'hoursWorked', $event)"
+                  placeholder="Hours"
+                  min="0"
+                  class="hours-input"
+                />
+                <span class="hours-label">hrs</span>
+                <button
+                  class="remove-btn"
+                  (click)="removeMember($index)"
+                  [disabled]="members().length <= 1"
+                  aria-label="Remove member"
+                >
+                  &times;
+                </button>
+              </div>
+            }
+          </div>
+
+          <button class="add-btn" (click)="addMember()">
+            + Add Member
+          </button>
+        </section>
+
+        <section class="results-section">
+          <h3>Patronage Allocation Results</h3>
+
+          <div class="summary-cards">
+            <div class="summary-card">
+              <span class="label">Total Hours</span>
+              <span class="value">{{ totalHours() | number }}</span>
+            </div>
+            <div class="summary-card">
+              <span class="label">Distributed</span>
+              <span class="value">{{ formatCurrency(totalDistributed()) }}</span>
+            </div>
+            <div class="summary-card">
+              <span class="label">Retained</span>
+              <span class="value">{{ formatCurrency(totalRetained()) }}</span>
+            </div>
+          </div>
+
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Hours</th>
+                <th>Patronage %</th>
+                <th>Total Allocation</th>
+                <th>Cash Distribution</th>
+                <th>Retained Equity</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (result of results(); track result.name) {
+                <tr>
+                  <td>{{ result.name }}</td>
+                  <td>{{ result.hoursWorked | number }}</td>
+                  <td>{{ formatPercent(result.patronagePercent) }}</td>
+                  <td>{{ formatCurrency(result.allocation) }}</td>
+                  <td class="distributed">{{ formatCurrency(result.distributed) }}</td>
+                  <td class="retained">{{ formatCurrency(result.retained) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </section>
+
+        <section class="projection-section">
+          <h3>Long-Term Equity Projection</h3>
+          <p class="section-hint">
+            See how your equity could grow over time with compounding interest and annual patronage allocations.
+          </p>
+
+          <div class="projection-inputs">
+            <div class="input-group">
+              <label for="buyIn">Initial Buy-In ($)</label>
+              <input
+                type="number"
+                id="buyIn"
+                [ngModel]="initialBuyIn()"
+                (ngModelChange)="updateBuyIn($event)"
+                min="0"
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="growthRate">Annual Surplus Growth (%)</label>
+              <input
+                type="number"
+                id="growthRate"
+                [ngModel]="annualGrowthRate()"
+                (ngModelChange)="updateGrowthRate($event)"
+                min="0"
+                max="20"
+              />
+              <span class="hint">Expected annual growth in cooperative surplus</span>
+            </div>
+
+            <div class="input-group">
+              <label for="interestRate">Interest on Capital (%)</label>
+              <input
+                type="number"
+                id="interestRate"
+                [ngModel]="interestRate()"
+                (ngModelChange)="updateInterestRate($event)"
+                min="0"
+                max="10"
+              />
+              <span class="hint">Many co-ops pay 2-5% interest on retained capital</span>
+            </div>
+
+            <div class="input-group">
+              <label for="years">Projection Years</label>
+              <input
+                type="number"
+                id="years"
+                [ngModel]="projectionYears()"
+                (ngModelChange)="updateProjectionYears($event)"
+                min="5"
+                max="40"
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="selectedMember">Show projection for</label>
+              <select
+                id="selectedMember"
+                [ngModel]="selectedMemberIndex()"
+                (ngModelChange)="updateSelectedMember($event)"
+              >
+                @for (member of members(); track $index) {
+                  <option [value]="$index">{{ member.name }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="projection-result">
+            <div class="final-equity">
+              <span class="label">Projected Equity After {{ projectionYears() }} Years</span>
+              <span class="value">{{ formatCurrency(finalEquity()) }}</span>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <div class="chart">
+              @for (bar of chartData(); track bar.year) {
+                <div class="chart-bar-wrapper">
+                  <div
+                    class="chart-bar"
+                    [style.height.%]="bar.heightPercent"
+                    [title]="'Year ' + bar.year + ': ' + formatCurrency(bar.equity)"
+                  ></div>
+                  <span class="chart-label">{{ bar.year }}</span>
+                </div>
+              }
+            </div>
+            <div class="chart-axis-label">Years of Membership</div>
+          </div>
+
+          <div class="milestones">
+            <h4>Equity Milestones</h4>
+            <div class="milestone-grid">
+              @for (milestone of milestones(); track milestone.year) {
+                <div class="milestone-card">
+                  <span class="milestone-year">Year {{ milestone.year }}</span>
+                  <span class="milestone-value">{{ formatCurrency(milestone.cumulativeEquity) }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </section>
+
+        <p class="disclaimer">
+          This calculator provides a simplified illustration of how patronage-based equity allocation
+          works in worker cooperatives. Projections assume consistent work hours, steady surplus growth,
+          and stable cooperative performance. Actual results vary based on your cooperative's bylaws,
+          tax elections (Subchapter T), state laws, accounting practices, and real-world business
+          conditions. This is for educational purposes only and should not be considered financial,
+          legal, or tax advice. Consult with a qualified cooperative attorney and accountant for your
+          specific situation.
+        </p>
+      </div>
+    </div>
+  </div>
+}

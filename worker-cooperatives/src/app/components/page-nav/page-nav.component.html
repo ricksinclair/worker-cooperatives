@@ -1,0 +1,18 @@
+<aside class="page-nav">
+  <nav>
+    <h3>Explore</h3>
+    <ul>
+      @for (item of navItems; track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            [class.active]="isActive(item.path)"
+          >
+            <span class="nav-label">{{ item.label }}</span>
+            <span class="nav-description">{{ item.description }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</aside>

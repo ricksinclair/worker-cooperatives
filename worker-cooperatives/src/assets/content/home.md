@@ -6,7 +6,7 @@ A worker cooperative is a business owned and democratically controlled by its em
 
 This isn't a utopian dream. It's a proven business model operating successfully across the globe—from bakeries in the Bay Area to billion-dollar manufacturing federations in Spain.
 
-**[Start Your Cooperative →](/start)** | **[Find Your State Guide →](/states)** | **[Learn More ↓](#why-worker-cooperatives-matter)**
+**[Start Your Cooperative →](/start)** | **[Find Your State Guide →](/states)** | **[What Is a Co-op? →](/what-is-a-worker-coop)**
 
 ---
 
@@ -117,12 +117,12 @@ Every state has different laws, resources, and support networks for cooperative 
 ### Want to Learn More?
 Dive deeper into how worker cooperatives work, their history, and the evidence supporting their effectiveness.
 
-**[Explore Resources →](/learn)**
+**[Explore How Co-ops Work →](/how-coops-work)**
 
-### Ready to Join the Movement?
-Connect with other cooperative advocates, find cooperatives hiring near you, or get involved in advocacy.
+### Need Financing Information?
+Learn about the various ways cooperatives raise capital and fund their operations.
 
-**[Connect →](/community)**
+**[Financing & Capital →](/financing)**
 
 ---
 
